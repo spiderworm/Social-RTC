@@ -153,7 +153,7 @@
             });
 
             // Add it to the feed
-            $('.feed').prepend('<blockquote class="pull-right"><p>' + text + '</p><small><span class="text-primary">' + peer.id + '</span> <span class="time">' + time + '</span></small></blockquote>');
+            $('.feed').prepend('<div class="clearfix"><blockquote class="pull-right"><p>' + text + '</p><small><span class="text-primary">' + peer.id + '</span> <span class="time">' + time + '</span></small></blockquote></div>');
 
             // Clear the post form
             $('#textAreaPost').val('');
@@ -214,6 +214,11 @@
             });
 
         });
+
+        // Run update timestamp function every 30 seconds
+        setInterval(function() {
+        refreshTimestamps);
+        }, 30000);
     </script>
 
 </body>
