@@ -9,6 +9,8 @@ Experiments in social networking over WebRTC, using:
 
 **Note:** This is a proof of concept and exploration rather than a stable, production ready application. Use at your own risk, the code has gremlins that often jump out at you - I'll blame JS instead of my lackluster JS knowledge :)
 
+You can see a running demo at: http://dev.estate/Social-RTC/index.html
+
 ## Running
 
 Make sure you have NodeJS installed first.
