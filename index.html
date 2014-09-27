@@ -146,6 +146,7 @@
 
                     // Notify that it's a self profile and load into template
                     data.self = true;
+                    data.posts.reverse();
                     $('.feed-page').html(template(data));
                     $('#username').editable({
                         mode: 'inline',
@@ -185,6 +186,7 @@
                             var template = Handlebars.compile(source);
 
                             var data = JSON.parse(decrypted.plaintext);
+                            data.posts.reverse();
                             $('.feed-page').html(template(data));
 
                             // Update the time stamps using moment.js
@@ -208,7 +210,6 @@
             // Grab the user's JSON profile and add the latest item
             localforage.getItem(user.id, function(data) {
                 data['posts'].push({"time":time,"content":text});
-                data.posts.reverse();
                 localforage.setItem(user.id, data, function() {         
                     viewProfile(user.id);
                 });
@@ -351,8 +352,4 @@
 
         // Routing for profiles (eg. #id)
         routie(':id', function(id) {
-            viewProfile(id);
-        });
-    </script>
-
-</bo
+      
