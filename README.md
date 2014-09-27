@@ -20,7 +20,7 @@ Make sure you have NodeJS installed first.
 
 `git clone https://github.com/ummjackson/Social-RTC.git`
 
-**2. Install PeerServer **
+**2. Install PeerServer**
 
 From inside the cloned repository directory:
 
