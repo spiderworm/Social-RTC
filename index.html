@@ -4,6 +4,7 @@
 <head>
     <title>Social</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.10/peer.min.js"></script>
@@ -14,18 +15,6 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
     <script src="js/routie.min.js"></script>
-    <style>
-        .content {
-            margin-top: 80px;
-        }
-        .search,
-        .feed-page {
-            display: none;
-        }
-        #username {
-            border: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -90,6 +79,33 @@
     </div>
 
     <script id="profile" type="text/x-handlebars-template">
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-4">
+            <img id="avatar" src="{{#if avatar}}{{avatar}}{{else}}http://placehold.it/250x250&text=Avatar+Image{{/if}}"/>
+            </div>
+            <div class="col-lg-8">
+                <h5 id="username">{{#if username}}{{username}}{{else}}New User{{/if}}</h5>
+                <span id="bio" class="text-muted">{{#if bio}}{{bio}}{{else}}Add a short bio{{/if}}</span>
+                <span class="text-primary">{{id}}</span>
+            </div>
+        </div>
+        {{#if self }}
+        <div class="row vert-offset-top-2">
+        <div class="col-lg-12">
+        <form class="post-form" role="form">
+            <div class="form-group">
+                <textarea class="form-control" rows="3" id="textAreaPost" placeholder="Say something..."></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary pull-right">POST</button>
+            </div>
+        </form>
+        </div>
+        </div>
+        {{/if}}
+    </div>
+
     <div class="col-lg-8 feed">
     <h5>Posts</h5>
     <hr>
@@ -99,19 +115,6 @@
         <small><span class="time" data-time="{{time}}"></span></small>
     </blockquote>
     {{/posts}}
-    </div>
-
-    <div class="col-lg-4">
-        <h5 id="username">{{#if username}}{{username}}{{else}}New User{{/if}}</h5>
-        <span class="help-block text-info">{{id}}</span>
-        {{#if self }}
-        <form class="post-form">
-            <div class="form-group">
-                <textarea class="form-control" rows="3" id="textAreaPost" placeholder="Say something..."></textarea>
-                <button type="submit" class="btn btn-primary pull-right">POST</button>
-            </div>
-        </form>
-        {{/if}}
     </div>
     </script>
 
@@ -157,6 +160,31 @@
                             data.username = username;
                             localforage.setItem(user.id, data, function() {
                             console.log('Username saved as: ' + username);  
+                            }); 
+                        }
+                    });
+                    $('#bio').editable({
+                        mode: 'inline',
+                        unsavedclass: null,
+                        showbuttons: false,
+                        highlight: '#dff0d8',
+                        success: function(response, bio) {
+                            data.bio = bio;
+                            localforage.setItem(user.id, data, function() {
+                            console.log('Bio saved as: ' + bio);  
+                            }); 
+                        }
+                    });
+                    $('#avatar').editable({
+                        mode: 'popup',
+                        unsavedclass: null,
+                        showbuttons: false,
+                        highlight: '#dff0d8',
+                        success: function(response, avatar) {
+                            data.avatar = avatar;
+                            localforage.setItem(user.id, data, function() {
+                            $('#avatar').attr('src', avatar);
+                            console.log('Avatar path saved as: ' + avatar);  
                             }); 
                         }
                     });
@@ -288,68 +316,4 @@
 
         }
 
-         // Post form is submitted
-        $(document).on('submit','.post-form', {} ,function(e){
-
-            // Stop the form from submitting
-            e.preventDefault();
-
-            // Get our update text and current time (since Unix Epoch)
-            text = $("#textAreaPost").val();
-            time = Math.floor(+new Date() / 1000);
-
-            addPost(text,time);
-
-        });
-
-         // Login form is submitted
-        $(document).on('submit','.login-form', {} ,function(e){
- 
-            // Stop the form from submitting
-            e.preventDefault();
-
-            email = $('#inputEmail').val();
-            passphrase = $('#inputPassphrase').val();
-
-            doLogin(email,passphrase);
-
-
-        });
-
-        // Search form is submitted
-        $(document).on('submit','.search', {} ,function(e){
- 
-            // Stop the form from submitting
-            e.preventDefault();
-
-            if ($('#inputSearch').val() != '') {
-            viewProfile($('#inputSearch').val());
-            }
-
-        });
-
-        // Navbar title is clicked
-        $(document).on('click','.navbar-brand', {} ,function(e){
- 
-            if (peer) {
-
-            // Stop the form from submitting
-            e.preventDefault();
-
-            // Go back to your own profile
-            viewProfile(peer.id);
-
-            }
-
-        });
-
-        // Run update timestamp function every 30 seconds
-        setInterval(function() {
-        refreshTimestamps();
-        }, 30000);
-
-        /* ROUTING GOES BELOW */
-
-        // Routing for profiles (eg. #id)
-        routie(':id', function(id) {
-      
+         // Post form is sub
