@@ -40,6 +40,7 @@ It is recommend you use a daemon such as Forever to keep server.js alive.
 
 - Login / key pair creation
 - Ability to publish posts and change username, with local storage implemented
+- Ability to add bio and avatar (link to external image)
 - Cryptographically secure request / response over WebRTC of user profiles and posts
 
 To give it a shot, install or visit the above demo, login and then make a few posts. Open another tab and sign in as another user. Copy / paste the identifier of your first profile to the input at the top right of your second profile (in the other tab) and hit go. You'll see the first user's profile and can inspect what's happening behind the scenes if you fire up the developer console. Click the "Social" nav header to get back to your profile. If you refresh then re-login your posts should still be there thanks to local storage!
