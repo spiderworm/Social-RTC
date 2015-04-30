@@ -1,5 +1,7 @@
 # Social-RTC
 
+**NO LONGER BEING WORKED ON**
+
 Experiments in social networking over WebRTC, using:
 
 - [PeerJS](http://peerjs.com/)
@@ -9,8 +11,6 @@ Experiments in social networking over WebRTC, using:
 - Jankily written client-side code, on my behalf
 
 **Note:** This is a proof of concept and exploration rather than a stable, production ready application. Use at your own risk, the code has gremlins that often jump out at you - I'll blame JS instead of my lackluster JS knowledge :)
-
-You can see a (buggy) running demo at: http://dev.estate/Social-RTC/index.html
 
 ## Running
 
